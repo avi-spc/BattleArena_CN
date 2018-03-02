@@ -7,10 +7,13 @@ public class LobbyNetwork : MonoBehaviour {
 	// Use this for initialization
 	private void Start () {
 
-        Debug.Log("Connecting to server . . .");
-        PhotonNetwork.ConnectUsingSettings("0.0.0.0");
-		
-	}
+        if (!PhotonNetwork.connected) {
+
+            Debug.Log("Connecting to server . . .");
+            PhotonNetwork.ConnectUsingSettings("0.0.0.0");
+
+        }
+    }
 
     private void OnConnectedToMaster() {
 
