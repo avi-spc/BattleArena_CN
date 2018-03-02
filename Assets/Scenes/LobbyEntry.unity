@@ -620,7 +620,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000008965083, y: 0.00005046335}
+  m_AnchoredPosition: {x: -0.000008965083, y: 0.000095203184}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &875803111
@@ -753,6 +753,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1064492447}
+  - component: {fileID: 1064492448}
   m_Layer: 5
   m_Name: Room
   m_TagString: Untagged
@@ -783,6 +784,17 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1064492448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1064492446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6dd4ee5f542e64eaaef5962c131d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1201965633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,6 +1595,7 @@ GameObject:
   - component: {fileID: 1817191198}
   - component: {fileID: 1817191200}
   - component: {fileID: 1817191199}
+  - component: {fileID: 1817191201}
   m_Layer: 5
   m_Name: PlayerLayoutGroup
   m_TagString: Untagged
@@ -1605,7 +1618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000008965083, y: 0.00010013281}
+  m_AnchoredPosition: {x: -0.000008965083, y: 0.00012461013}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1817191199
@@ -1643,6 +1656,19 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &1817191201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1817191197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b191ea382b1a52e4a9385acf1ba5ded1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerListingPrefab: {fileID: 1949008927140618, guid: 4455c1b7f8cb0eb428538a9288a65ab2,
+    type: 2}
 --- !u!1 &1845783061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,6 +1994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lobbyCanvas: {fileID: 2085326519}
+  _roomCanvas: {fileID: 1064492448}
 --- !u!1 &2051149708
 GameObject:
   m_ObjectHideFlags: 0
