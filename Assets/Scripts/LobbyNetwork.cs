@@ -15,6 +15,7 @@ public class LobbyNetwork : MonoBehaviour {
     private void OnConnectedToMaster() {
 
         Debug.Log("Connected to master.");
+        PhotonNetwork.automaticallySyncScene = true;
         PhotonNetwork.playerName = PlayerNetwork.Instance.PlayerName;
 
         PhotonNetwork.JoinLobby(TypedLobby.Default);
@@ -24,6 +25,9 @@ public class LobbyNetwork : MonoBehaviour {
     private void OnJoinedLobby() {
 
         Debug.Log("Lobby Joined");
+
+        if(!PhotonNetwork.inRoom)
+            MainCanvasManager.Instance.LobbyCanvas.transform.SetAsLastSibling();
 
     }
 	

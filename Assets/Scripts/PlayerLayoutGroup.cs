@@ -17,6 +17,10 @@ public class PlayerLayoutGroup : MonoBehaviour {
 
     private void OnJoinedRoom() {
 
+        foreach (Transform child in transform) {
+            Destroy(child.gameObject);
+        }
+
         MainCanvasManager.Instance.RoomCanvas.transform.SetAsLastSibling();
 
         PhotonPlayer[] photonPlayers = PhotonNetwork.playerList;
@@ -63,6 +67,23 @@ public class PlayerLayoutGroup : MonoBehaviour {
             Destroy(PlayerListings[index].gameObject);
             PlayerListings.RemoveAt(index);
         }
+
+    }
+
+    public void OnRoomState()
+    {
+
+        if (!PhotonNetwork.isMasterClient)
+            return;
+
+        PhotonNetwork.room.IsOpen = !PhotonNetwork.room.IsOpen;
+        PhotonNetwork.room.IsVisible = PhotonNetwork.room.IsOpen;
+
+    }
+
+    public void OnLeaveRoom() {
+
+        PhotonNetwork.LeaveRoom();
 
     }
 
