@@ -238,7 +238,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -338,6 +338,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce1e6087d1c21b419a93c09444f5e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayersInGame: 0
+  mc: 0
+  wasAlreadyConnected: 0
+  numofplayer: 0
 --- !u!1 &1406174646
 GameObject:
   m_ObjectHideFlags: 0

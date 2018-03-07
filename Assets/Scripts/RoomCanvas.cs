@@ -4,8 +4,15 @@ public class RoomCanvas : MonoBehaviour {
 
     public void OnStartMatch() {
 
-        PhotonNetwork.LoadLevel(2);
+     //   if (PhotonNetwork.isMasterClient) {
 
+            PhotonNetwork.room.IsOpen = true;
+            PhotonNetwork.room.IsVisible = true;
+            PhotonNetwork.LoadLevel(2);
+
+     //
+        
+        
     }
 
 }

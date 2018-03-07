@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PlayerMovement : Photon.MonoBehaviour {
@@ -7,21 +8,43 @@ public class PlayerMovement : Photon.MonoBehaviour {
     private PhotonView PhotonView;
     private Vector3 TargetPosition;
     private Quaternion TargetRotation;
+    public GameObject cam;
 
     private void Awake() {
 
         PhotonView = GetComponent<PhotonView>();
+        //cam = GetComponent<GameObject>();
+        //  MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+    }
+
+    private void Start()
+    {
+        if (PhotonView.isMine)
+        {
+            cam.SetActive(true);
+        }
+        else { cam.SetActive(false);
+        }
 
     }
 
     void Update () {
 
-        if (PhotonView.isMine)
-            CheckInput();
+        if (PhotonView.isMine/* && PhotonNetwork.connectionState == ConnectionState.Connected*/) {
+            CheckInput();            
+        }
         else
             SmoothMovement();
 
 	}
+
+    public void RPC_SpawnPlayer()
+    {
+
+        float randomHeight = Random.Range(0, 10f);
+        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Cube"), Vector3.up * randomHeight, Quaternion.identity, 0);
+        
+    }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 

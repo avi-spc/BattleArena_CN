@@ -33,7 +33,7 @@ public class PlayerLayoutGroup : MonoBehaviour {
     private void OnPhotonPlayerConnected(PhotonPlayer photonPlayer) {
 
         PlayerJoinedRoom(photonPlayer);
-
+        
     }
 
     private void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer) {
