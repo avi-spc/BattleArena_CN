@@ -38,11 +38,11 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
 	}
 
-    public void RPC_SpawnPlayer()
+    public void RPC_SpawnPlayer(Transform spawnPoint)
     {
 
-        float randomHeight = Random.Range(0, 10f);
-        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Cube"), Vector3.up * randomHeight, Quaternion.identity, 0);
+        //float randomHeight = Random.Range(4, 10f);
+        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Cube"), spawnPoint.position , Quaternion.identity, 0);
         
     }
 

@@ -39,4 +39,5 @@ MonoBehaviour:
   - RPC_LoadedGameScene
   - RPC_LoadGameOthers
   - RPC_SpawnPlayer
+  - RPC_tellOthers
   DisableAutoOpenWizard: 1
