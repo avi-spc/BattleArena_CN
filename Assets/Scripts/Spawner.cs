@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour {
 
@@ -8,29 +9,39 @@ public class Spawner : MonoBehaviour {
 
     public Transform[] spawnPoint = new Transform[5];
     public int playerID = 0;
-  
+    public string character;
+    
     private void Awake() {
-        playerID = PhotonNetwork.player.ID; ;
+
+        playerID = PhotonNetwork.player.ID;
+        character = PlayerNetwork.Instance.cha;
     }
 
     private void Start() {
 
-        switch (playerID) {
-            case 1: pm.RPC_SpawnPlayer(spawnPoint[0]);
+        Debug.Log(PhotonNetwork.player.ID);
+
+        switch (playerID%5) {
+            case 1: pm.RPC_SpawnPlayer(spawnPoint[0], character);
                 break;
-            case 2: pm.RPC_SpawnPlayer(spawnPoint[1]);
+            case 2: pm.RPC_SpawnPlayer(spawnPoint[1], character);
                 break;
-            case 3: pm.RPC_SpawnPlayer(spawnPoint[2]);
+            case 3: pm.RPC_SpawnPlayer(spawnPoint[2], character);
                 break;
-            case 4: pm.RPC_SpawnPlayer(spawnPoint[3]);
+            case 4: pm.RPC_SpawnPlayer(spawnPoint[3], character);
                 break;
-            case 5: pm.RPC_SpawnPlayer(spawnPoint[4]);
+            case 0: pm.RPC_SpawnPlayer(spawnPoint[4], character);
                 break;
             default: break;
         }
 
     }
-    
+
+    public void OnDis()
+    {
+        PhotonNetwork.Disconnect();
+    }
+
 }
 	
 	

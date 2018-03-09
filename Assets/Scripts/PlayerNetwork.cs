@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.UI;
 
 public class PlayerNetwork : Photon.MonoBehaviour {
 
@@ -10,10 +11,11 @@ public class PlayerNetwork : Photon.MonoBehaviour {
     public int PlayersInGame = 0;
     //[SerializeField]
     public bool mc, wasAlreadyConnected;
-    public int numofplayer = 0;
+    public int numofplayer = 0;    
 
     private PhotonView PhotonView;
-	
+    public string cha;
+
 	private void Awake () {
         
         Instance = this;
@@ -30,7 +32,7 @@ public class PlayerNetwork : Photon.MonoBehaviour {
 	}
 
     private void Update()
-    {
+    {   
         numofplayer = PhotonNetwork.playerList.Length;
         if (PhotonNetwork.isMasterClient)
             mc = true;
@@ -46,7 +48,7 @@ public class PlayerNetwork : Photon.MonoBehaviour {
 
     private void OnDisconnectedFromPhoton() {
         wasAlreadyConnected = true;
-        PhotonNetwork.LoadLevel(1);
+        
         PhotonNetwork.ReconnectAndRejoin();
         
     }
