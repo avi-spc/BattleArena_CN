@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour {
 
         Debug.Log(PhotonNetwork.player.ID);
 
-        switch (playerID%5) {
+        switch (playerID % 5) {
             case 1: pm.RPC_SpawnPlayer(spawnPoint[0], character);
                 break;
             case 2: pm.RPC_SpawnPlayer(spawnPoint[1], character);

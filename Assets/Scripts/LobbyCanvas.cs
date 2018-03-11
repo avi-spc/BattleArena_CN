@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyCanvas : MonoBehaviour {
+
+    public InputField PlayerName;
+    public string playerName;
 
     [SerializeField]
     private RoomLayoutGroup _roomLayoutGroup;
@@ -18,6 +22,12 @@ public class LobbyCanvas : MonoBehaviour {
             Debug.Log("Join room failed");
         }
 
+    }
+
+    public void Update()
+    {
+        PhotonNetwork.playerName = PlayerName.text.ToString();
+        
     }
 
 }
