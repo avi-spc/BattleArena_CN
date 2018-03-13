@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class PlayerMovement : Photon.MonoBehaviour {
 
     public static PlayerMovement Instance;
    // [SerializeField]
+    public Text _playerHealth;
+    
     public Transform selfSpawnTransform;
     private PhotonView PhotonView;
     private Vector3 TargetPosition;
@@ -22,6 +23,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
         Instance = this;
         PhotonView = GetComponent<PhotonView>();
         Health = 100;
+        _playerHealth = GetComponentInChildren<Text>();
     }
 
     private void Start()
@@ -37,8 +39,8 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
     void Update () {
 
-        if (PhotonView.isMine/* && PhotonNetwork.connectionState == ConnectionState.Connected*/) {
-            CheckInput();            
+        if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
+            CheckInput();
         }
         else
             SmoothMovement();
@@ -49,10 +51,10 @@ public class PlayerMovement : Photon.MonoBehaviour {
             Invoke("FurtherRespawn", 2f);
             //StartCoroutine(FurtherRespawn(selfSpawnTransform));
         }
-        
+        _playerHealth.text = Health.ToString();
     }
 
-    
+
 
     public void RPC_SpawnPlayer(Transform spawnPoint, string shape)
     {
@@ -122,11 +124,9 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
     private void FurtherRespawn() {
 
-        Health = 100;
+       Health = 100;
        gameObject.SetActive(true);
-        gameObject.transform.position = selfSpawnTransform.position;
-
-        //yield return new WaitForSeconds(4f);
+       gameObject.transform.position = selfSpawnTransform.position;
 
     }
 }

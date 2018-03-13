@@ -342,6 +342,7 @@ MonoBehaviour:
   mc: 0
   wasAlreadyConnected: 0
   numofplayer: 0
+  CurrentPlayer: {fileID: 0}
   cha: 
 --- !u!1 &1406174646
 GameObject:
