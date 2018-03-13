@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerListing : MonoBehaviour {
@@ -11,11 +12,35 @@ public class PlayerListing : MonoBehaviour {
         get { return _playerName; }
     }
 
+    [SerializeField]
+    private Text _playerPing;
+    private Text PlayerPing {
+        get {return _playerPing; }
+    }
+
     public void ApplyPhotonPlayer(PhotonPlayer photonPlayer) {
 
         PhotonPlayer = photonPlayer;
         PlayerName.text = PhotonPlayer.NickName;
-    
+
+        StartCoroutine(ShowPlayerPing());
+
     }
+
+    private IEnumerator ShowPlayerPing()
+    {
+
+        while (PhotonNetwork.connected)
+        {
+            int ping = (int) PhotonPlayer.CustomProperties["Ping"];
+            PlayerPing.text = ping.ToString();
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield break;
+
+    }
+
 
 }

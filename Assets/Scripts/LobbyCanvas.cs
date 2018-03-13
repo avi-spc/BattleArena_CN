@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LobbyCanvas : MonoBehaviour {
 
     public InputField PlayerName;
-    public string playerName;
+    //public string playerName;
 
     [SerializeField]
     private RoomLayoutGroup _roomLayoutGroup;

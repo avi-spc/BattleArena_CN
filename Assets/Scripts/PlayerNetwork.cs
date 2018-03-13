@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerNetwork : Photon.MonoBehaviour {
 
@@ -11,10 +12,15 @@ public class PlayerNetwork : Photon.MonoBehaviour {
     public int PlayersInGame = 0;
     //[SerializeField]
     public bool mc, wasAlreadyConnected;
-    public int numofplayer = 0;    
+    public int numofplayer = 0;
+
+    private ExitGames.Client.Photon.Hashtable playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
 
     private PhotonView PhotonView;
+    public PlayerMovement CurrentPlayer;
     public string cha;
+
+    private Coroutine playerPingCoroutine;
 
 	private void Awake () {
         
@@ -64,14 +70,15 @@ public class PlayerNetwork : Photon.MonoBehaviour {
                 
             else
                 NonMasterLoadedGame();
+
+
         }
 
     }
 
     private void MasterLoadedGame() {
-       // PhotonView.RPC("RPC_SpawnPlayer", PhotonTargets.MasterClient);
-        // wasAlreadyConnected = true;
-        PhotonView.RPC("RPC_LoadedGameScene", PhotonTargets.MasterClient);
+       
+        PhotonView.RPC("RPC_LoadedGameScene", PhotonTargets.MasterClient, PhotonNetwork.player);
         PhotonView.RPC("RPC_LoadGameOthers", PhotonTargets.Others);
         Debug.Log("M spwaned");
 
@@ -79,8 +86,7 @@ public class PlayerNetwork : Photon.MonoBehaviour {
 
     private void NonMasterLoadedGame() {
         
-        PhotonView.RPC("RPC_LoadedGameScene", PhotonTargets.OthersBuffered);
-      //  wasAlreadyConnected = true;
+        PhotonView.RPC("RPC_LoadedGameScene", PhotonTargets.MasterClient, PhotonNetwork.player);
         Debug.Log("C spwaned");
 
     }
@@ -95,16 +101,59 @@ public class PlayerNetwork : Photon.MonoBehaviour {
     }
 
     [PunRPC]
-    private void RPC_LoadedGameScene() {
+    private void RPC_LoadedGameScene(PhotonPlayer photonPlayer)
+    {
+
+        PlayerManagement.Instance.AddPlayerStats(photonPlayer);
 
         PlayersInGame++;
-        if (PlayersInGame == PhotonNetwork.playerList.Length) {
+        if (PlayersInGame == PhotonNetwork.playerList.Length)
+        {
             Debug.Log("All players are in scene.");
-          //  PhotonView.RPC("RPC_SpawnPlayer", PhotonTargets.All);
         }
 
     }
 
-   // [PunRPC]
+    //public void ChangeHealth(PhotonPlayer photonPlayer, int health)
+    //{
+
+    //    PhotonView.RPC("RPC_ChangeHealth", photonPlayer, health);
+
+    //}
+
+    //[PunRPC]
+    //private void RPC_ChangeHealth(int health)
+    //{
+
+    //    if (CurrentPlayer == null)
+    //        return;
+
+    //    if (health <= 0)
+    //        PhotonNetwork.Destroy(CurrentPlayer.gameObject);
+    //    else
+    //        CurrentPlayer.Health = health;
+    //}
+
+
+    private IEnumerator SetPlayerPing() {
+
+        while (PhotonNetwork.connected) {
+            playerCustomProperties["Ping"] = PhotonNetwork.GetPing();
+            PhotonNetwork.player.SetCustomProperties(playerCustomProperties);
+
+            yield return new WaitForSeconds(5f);
+        }
+
+        yield break;
+
+    }
+
+    private void OnConnectedToMaster() {
+
+        if (playerPingCoroutine != null)
+            StopCoroutine(playerPingCoroutine);
+        playerPingCoroutine = StartCoroutine(SetPlayerPing());
+        
+    }
    
 }

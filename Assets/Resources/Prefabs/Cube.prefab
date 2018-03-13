@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1391696391765704}
+  playerGameObject: {fileID: 0}
 --- !u!114 &114481716139639960
 MonoBehaviour:
   m_ObjectHideFlags: 1

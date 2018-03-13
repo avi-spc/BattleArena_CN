@@ -22,15 +22,25 @@ public class Spawner : MonoBehaviour {
         Debug.Log(PhotonNetwork.player.ID);
 
         switch (playerID % 5) {
-            case 1: pm.RPC_SpawnPlayer(spawnPoint[0], character);
+            case 1:
+                pm.RPC_SpawnPlayer(spawnPoint[0], character);
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[0];
                 break;
-            case 2: pm.RPC_SpawnPlayer(spawnPoint[1], character);
+            case 2:
+                pm.RPC_SpawnPlayer(spawnPoint[1], character);
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[1];
                 break;
-            case 3: pm.RPC_SpawnPlayer(spawnPoint[2], character);
+            case 3:
+                pm.RPC_SpawnPlayer(spawnPoint[2], character);
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[2];
                 break;
-            case 4: pm.RPC_SpawnPlayer(spawnPoint[3], character);
+            case 4:
+                pm.RPC_SpawnPlayer(spawnPoint[3], character);
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[3];
                 break;
-            case 0: pm.RPC_SpawnPlayer(spawnPoint[4], character);
+            case 0:
+                pm.RPC_SpawnPlayer(spawnPoint[4], character);
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[4];
                 break;
             default: break;
         }

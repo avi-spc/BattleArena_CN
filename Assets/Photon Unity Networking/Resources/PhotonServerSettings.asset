@@ -40,4 +40,5 @@ MonoBehaviour:
   - RPC_LoadGameOthers
   - RPC_SpawnPlayer
   - RPC_tellOthers
+  - RPC_ChangeHealth
   DisableAutoOpenWizard: 1
