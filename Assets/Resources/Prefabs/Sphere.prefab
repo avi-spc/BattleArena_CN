@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 54658544717992042}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,10 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71dd53472c2a8641ba8bb4fa2d11734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerHealth: {fileID: 0}
+  _playerHealth: {fileID: 114410329415841220}
   selfSpawnTransform: {fileID: 0}
   cam: {fileID: 1025021556923874}
   playerGameObject: {fileID: 0}
+  canvas: {fileID: 1691281098710630}
   Health: 0
 --- !u!114 &114410329415841220
 MonoBehaviour:
@@ -349,7 +350,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114438734555216196
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -14,12 +14,13 @@ public class PlayerMovement : Photon.MonoBehaviour {
     private Vector3 TargetPosition;
     private Quaternion TargetRotation;
     public GameObject cam;
-    public GameObject playerGameObject;
+    public GameObject playerGameObject, canvas;
 
+    
     public int Health;
 
     private void Awake() {
-
+        
         Instance = this;
         PhotonView = GetComponent<PhotonView>();
         Health = 100;
@@ -34,11 +35,12 @@ public class PlayerMovement : Photon.MonoBehaviour {
         }
         else { cam.SetActive(false);
         }
+       
 
     }
 
     void Update () {
-
+        
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
             CheckInput();
         }
@@ -51,18 +53,33 @@ public class PlayerMovement : Photon.MonoBehaviour {
             Invoke("FurtherRespawn", 2f);
             //StartCoroutine(FurtherRespawn(selfSpawnTransform));
         }
-        _playerHealth.text = Health.ToString();
+
+        if (!PhotonView.isMine) {
+            _playerHealth.text = Health.ToString();
+            
+        }
+
+        if (PhotonView.isMine) {
+            GameUI.Instance.playerHealth.text = Health.ToString();
+            PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
+
+        }
+            
+
     }
 
 
 
-    public void RPC_SpawnPlayer(Transform spawnPoint, string shape)
-    {
-
-        //float randomHeight = Random.Range(4, 10f);
+    public void RPC_SpawnPlayer(Transform spawnPoint, string shape) {
+        
         PhotonNetwork.Instantiate(Path.Combine("Prefabs", shape), spawnPoint.position , Quaternion.identity, 0);
-        //selfSpawnTransform = spawnPoint;
-       // PlayerNetwork.Instance.CurrentPlayer = playerGameObject.GetComponent<PlayerMovement>();
+
+    }
+
+    [PunRPC]
+    private void RPC_PlayerUICameraFollow() {
+
+        canvas.transform.LookAt(this.cam.transform);
 
     }
 

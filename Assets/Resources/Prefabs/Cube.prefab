@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 54061789496339792}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &114165325303457848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,6 +386,7 @@ MonoBehaviour:
   selfSpawnTransform: {fileID: 0}
   cam: {fileID: 1391696391765704}
   playerGameObject: {fileID: 0}
+  canvas: {fileID: 1846905907620438}
   Health: 0
 --- !u!114 &114481716139639960
 MonoBehaviour:
