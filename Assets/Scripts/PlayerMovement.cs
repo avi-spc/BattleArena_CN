@@ -14,17 +14,22 @@ public class PlayerMovement : Photon.MonoBehaviour {
     private Vector3 TargetPosition;
     private Quaternion TargetRotation;
     public GameObject cam;
-    public GameObject playerGameObject, canvas;
+    public GameObject playerGameObject, canvas, target;
+    private Camera c;
 
-    
+    Vector3 d = new Vector3(Screen.width / 2, Screen.width / 2,0);
+
     public int Health;
 
     private void Awake() {
+
         
         Instance = this;
         PhotonView = GetComponent<PhotonView>();
         Health = 100;
         _playerHealth = GetComponentInChildren<Text>();
+        c = cam.GetComponent<Camera>();
+        target = GameObject.FindGameObjectWithTag("target");   
     }
 
     private void Start()
@@ -35,12 +40,18 @@ public class PlayerMovement : Photon.MonoBehaviour {
         }
         else { cam.SetActive(false);
         }
-       
-
+        
     }
 
     void Update () {
+
+        //Vector3 screenPos = Camera.main.WorldToScreenPoint(d);
+
         
+        //target.transform.position = d;
+        //canvas.transform.rotation = Quaternion.LookRotation(target.transform.forward);
+        Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
+
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
             CheckInput();
         }
@@ -59,12 +70,18 @@ public class PlayerMovement : Photon.MonoBehaviour {
             
         }
 
-        if (PhotonView.isMine) {
-            GameUI.Instance.playerHealth.text = Health.ToString();
-            PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
 
+
+        if (PhotonView.isMine)
+        {
+            GameUI.Instance.playerHealth.text = gameObject.tag;
+          //  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
+           
         }
-            
+
+        
+        
+
 
     }
 
