@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour {
                 break;
             case 0:
                 pm.RPC_SpawnPlayer(spawnPoint[4], character);
-                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[4];
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[4   ];
                 break;
             default: break;
         }

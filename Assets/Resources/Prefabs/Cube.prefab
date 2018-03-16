@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 223864392554559702}
   - component: {fileID: 114268168582205926}
   - component: {fileID: 114401014316680438}
-  - component: {fileID: 54702693524413320}
   m_Layer: 0
   m_Name: Canvas (2)
   m_TagString: Untagged
@@ -277,21 +276,6 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!54 &54702693524413320
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1427132412533392}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &65742729581292130
 BoxCollider:

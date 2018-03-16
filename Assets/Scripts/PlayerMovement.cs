@@ -47,9 +47,11 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
         //Vector3 screenPos = Camera.main.WorldToScreenPoint(d);
 
-        
-        //target.transform.position = d;
+
+        //    target.transform.position = d;
         //canvas.transform.rotation = Quaternion.LookRotation(target.transform.forward);
+
+        canvas.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
         Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
 
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
@@ -145,15 +147,25 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
         // PhotonView photonView = collider.GetComponent<PhotonView>();
         if (collider.gameObject.tag == "Armor") {
-           // Health -= 10;
+            // Health -= 10;
+          //  Debug.Log(collider.gameObject.GetPhotonView());
             if (PhotonView != null && PhotonView.isMine) {
                 Health -= 10;
                 PlayerManagement.Instance.ModifyHealth(PhotonView.owner, Health);
             }
         }
         
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        PhotonView pv;
+        if (collision.gameObject.GetPhotonView() != null && PhotonView.isMine) {
+            pv = collision.gameObject.GetPhotonView();
+            Debug.Log(pv.viewID);
 
+        }
+            
     }
 
     private void FurtherRespawn() {
