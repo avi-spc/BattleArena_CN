@@ -10,7 +10,7 @@ public class PlayerManagement : MonoBehaviour
 
     private List<PlayerStats> PlayerStats = new List<PlayerStats>();
     [SerializeField]
-    private int h;
+    private float h;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class PlayerManagement : MonoBehaviour
 
     private void Update()
     {
-        h = PlayerMovement.Instance.Health;
+        h = PlayerMovement.Instance.curr_health;
     }
 
     public void AddPlayerStats(PhotonPlayer photonPlayer)
@@ -36,7 +36,7 @@ public class PlayerManagement : MonoBehaviour
         
     }
 
-    public void ModifyHealth(PhotonPlayer photonPlayer, int healthValue)
+    public void ModifyHealth(PhotonPlayer photonPlayer, float healthValue)
     {
         
         int index = PlayerStats.FindIndex(x => x.PhotonPlayer == photonPlayer);
@@ -56,7 +56,7 @@ public class PlayerManagement : MonoBehaviour
 public class PlayerStats
 {
 
-    public PlayerStats(PhotonPlayer photonPlayer, int health)
+    public PlayerStats(PhotonPlayer photonPlayer, float health)
     {
 
         PhotonPlayer = photonPlayer;
@@ -65,7 +65,7 @@ public class PlayerStats
     }
 
     public readonly PhotonPlayer PhotonPlayer;
-    public int Health;
+    public float Health;
 
 }
 
