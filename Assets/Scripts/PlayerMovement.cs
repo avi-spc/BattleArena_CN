@@ -7,7 +7,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
     public static PlayerMovement Instance;
    // [SerializeField]
-    public Text _playerHealth;
+    public Text _playerHealth, playerKills, playerDeaths;
     public Image healthFG;
     public Transform selfSpawnTransform;
     private PhotonView PhotonView;
@@ -16,6 +16,10 @@ public class PlayerMovement : Photon.MonoBehaviour {
     public GameObject cam;
     public GameObject playerGameObject, canvas, target;
     private Camera c;
+    public PlayerMovement pm;
+    
+    public int deaths;
+   
 
     Vector3 d = new Vector3(Screen.width / 2, Screen.width / 2,0);
 
@@ -30,11 +34,15 @@ public class PlayerMovement : Photon.MonoBehaviour {
         _playerHealth = GetComponentInChildren<Text>();
         c = cam.GetComponent<Camera>();
         health = 10;
-        target = GameObject.FindGameObjectWithTag("target");   
+        target = GameObject.FindGameObjectWithTag("target");
+
+        
+       
     }
 
     private void Start()
     {
+      
         if (PhotonView.isMine)
         {
             cam.SetActive(true);
@@ -55,6 +63,9 @@ public class PlayerMovement : Photon.MonoBehaviour {
         //canvas.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
         Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
 
+        
+        playerDeaths.text = deaths.ToString();
+
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
             CheckInput();
         }
@@ -63,29 +74,26 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
         if (curr_health <= 0)
         {
+            deaths++;
             gameObject.SetActive(false);
             Invoke("FurtherRespawn", 2f);
             //StartCoroutine(FurtherRespawn(selfSpawnTransform));
         }
 
-     //   if (!PhotonView.isMine) {
-            _playerHealth.text = PlayerNetwork.Instance.PlayerName;
-
-        //}
+        if (!PhotonView.isMine) {
+            _playerHealth.text = curr_health.ToString();
+            
+        }
 
        
 
         if (PhotonView.isMine)
         {
             GameUI.Instance.playerHealth.text = curr_health.ToString();
-            
+           
             //  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
 
         }
-
-        
-        
-
 
     }
 
@@ -110,11 +118,15 @@ public class PlayerMovement : Photon.MonoBehaviour {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
             stream.SendNext(curr_health);
+          
+            stream.SendNext(deaths);
         }
         else {
             TargetPosition = (Vector3) stream.ReceiveNext();
             TargetRotation = (Quaternion) stream.ReceiveNext();
             curr_health = (float) stream.ReceiveNext();
+            
+            deaths = (int) stream.ReceiveNext();
         }
 
         
@@ -140,42 +152,86 @@ public class PlayerMovement : Photon.MonoBehaviour {
         transform.Rotate(new Vector3(0, horizontal * rotateSpeed * Time.deltaTime, 0));
 
     }
-    private void OnTriggerEnter(Collider collider)
-    {
+    //private void OnCollisionEnter(Collision collision)
+    //{
 
 
-        //if (!PhotonNetwork.isMasterClient)
-        //    return;
+    //    //if (!PhotonNetwork.isMasterClient)
+    //    //    return;
 
-        // PhotonView photonView = collider.GetComponent<PhotonView>();
-        if (collider.gameObject.tag == "Armor") {
-            // Health -= 10;
-          //  Debug.Log(collider.gameObject.GetPhotonView());
-            if (PhotonView != null && PhotonView.isMine) {
-                curr_health -= health;
-                healthFG.fillAmount = curr_health / max_health;
-                PlayerManagement.Instance.ModifyHealth(PhotonView.owner, curr_health);
-            }
-        }
+    //    // PhotonView photonView = collider.GetComponent<PhotonView>();
         
-    }
+        
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
-        PhotonView pv;
-        if (collision.gameObject.GetPhotonView() != null && PhotonView.isMine) {
-            pv = collision.gameObject.GetPhotonView();
-            Debug.Log(pv.viewID);
+        
+        if (collision.gameObject.tag == "Player")
+        {
+            
+            // Health -= 10;
+            //  Debug.Log(collider.gameObject.GetPhotonView());
+            if (PhotonView != null && PhotonView.isMine)
+            {
+                curr_health -= health;
+                
+                PlayerManagement.Instance.ModifyHealth(PhotonView.owner, curr_health);
+            }
+            healthFG.fillAmount = curr_health / max_health;
+            PhotonView pv;
+
+         
+            if (collision.gameObject.GetPhotonView() != null && PhotonView.isMine)
+            {
+                pv = collision.gameObject.GetPhotonView();
+                Debug.Log(pv.viewID);
+            }
+
+            if (curr_health <= 0)
+                PhotonView.RPC("increaseKills", PhotonTargets.All, collision.gameObject.GetPhotonView().ownerId);
 
         }
-            
+        
+
     }
 
     private void FurtherRespawn() {
 
+        healthFG.fillAmount = 1;
        curr_health = 100;
        gameObject.SetActive(true);
        gameObject.transform.position = selfSpawnTransform.position;
 
     }
+
+    [PunRPC]
+    private void increaseKills(int playerUID)
+    {
+        
+         GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills"); 
+         KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
+        switch (playerUID % 5)
+        {
+            case 1:
+                ki.eachPlayerKills[0]++;
+                break;
+            case 2:
+                ki.eachPlayerKills[1]++;
+                break;
+            case 3:
+                ki.eachPlayerKills[2]++;
+                break;
+            case 4:
+                ki.eachPlayerKills[3]++;
+                break;
+            case 0:
+                ki.eachPlayerKills[4]++;
+                break;
+            default:
+                break;
+        }
+    }
+
+
 }
