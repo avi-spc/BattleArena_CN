@@ -19,7 +19,9 @@ public class PlayerMovement : Photon.MonoBehaviour {
     public PlayerMovement pm;
     
     public int deaths;
-   
+
+    GameObject globalKillInc;
+    KillsIncrementer globalKi;
 
     Vector3 d = new Vector3(Screen.width / 2, Screen.width / 2,0);
 
@@ -27,7 +29,8 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
     private void Awake() {
 
-        
+        globalKillInc = GameObject.FindGameObjectWithTag("Kills");
+        globalKi = globalKillInc.GetComponent<KillsIncrementer>();
         Instance = this;
         PhotonView = GetComponent<PhotonView>();
         curr_health = max_health = 100;
@@ -55,7 +58,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
     void Update () {
 
         //Vector3 screenPos = Camera.main.WorldToScreenPoint(d);
-
+       // PhotonView.RPC("setKills", PhotonTargets.All);
 
         //    target.transform.position = d;
         //canvas.transform.rotation = Quaternion.LookRotation(target.transform.forward);
@@ -65,6 +68,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
         
         playerDeaths.text = deaths.ToString();
+        //playerKills.text = globalKi.eachPlayerKills[gameObject.GetPhotonView().ownerId].ToString();
 
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected) {
             CheckInput();
@@ -90,7 +94,8 @@ public class PlayerMovement : Photon.MonoBehaviour {
         if (PhotonView.isMine)
         {
             GameUI.Instance.playerHealth.text = curr_health.ToString();
-           
+            setKills();
+           // GameUI.Instance.playerKills.text = 
             //  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
 
         }
@@ -188,9 +193,12 @@ public class PlayerMovement : Photon.MonoBehaviour {
                 Debug.Log(pv.viewID);
             }
 
-            if (curr_health <= 0)
+            if (curr_health <= 0) {
                 PhotonView.RPC("increaseKills", PhotonTargets.All, collision.gameObject.GetPhotonView().ownerId);
-
+                
+            }
+                
+            
         }
         
 
@@ -232,6 +240,43 @@ public class PlayerMovement : Photon.MonoBehaviour {
                 break;
         }
     }
+
+    private void setKills() {
+        GameObject go = GameObject.FindGameObjectWithTag("Kills");
+        KillsIncrementer k = go.GetComponent<KillsIncrementer>();
+
+        GameUI.Instance.playerKills.text = k.eachPlayerKills[(PhotonNetwork.player.ID-1)%5].ToString();
+
+    }
+
+    //[PunRPC]
+    //private void setKills()
+    //{
+
+    //    GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+    //    KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
+    //    switch (PhotonNetwork.player.ID % 5)
+    //    {
+    //        case 1:
+    //            playerKills.text = ki.eachPlayerKills[0].ToString();
+    //            break;
+    //        case 2:
+    //            playerKills.text = ki.eachPlayerKills[1].ToString();
+    //            break;
+    //        case 3:
+    //            playerKills.text = ki.eachPlayerKills[2].ToString();
+    //            break;
+    //        case 4:
+    //            playerKills.text = ki.eachPlayerKills[3].ToString();
+    //            break;
+    //        case 0:
+    //            playerKills.text = ki.eachPlayerKills[4].ToString();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
 
 
 }

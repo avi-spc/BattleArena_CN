@@ -8,7 +8,7 @@ public class GameUI : MonoBehaviour {
     public static GameUI Instance;
 
     public Text playerHealth;
-
+    public Text playerKills;
 	// Use this for initialization
 	private void Awake () {
         Instance = this;

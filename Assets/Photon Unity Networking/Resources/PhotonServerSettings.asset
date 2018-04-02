@@ -44,4 +44,5 @@ MonoBehaviour:
   - RPC_PlayerUICameraFollow
   - RPC_setKills
   - increaseKills
+  - setKills
   DisableAutoOpenWizard: 1
