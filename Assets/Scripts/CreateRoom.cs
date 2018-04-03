@@ -11,6 +11,8 @@ public class CreateRoom : MonoBehaviour {
         get { return _roomName; }
     }
 
+    //public bool con=false;
+
     public void OnCreateRoom() {
 
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 5 };
@@ -24,6 +26,10 @@ public class CreateRoom : MonoBehaviour {
         else {
             Debug.Log("Request for room creation failed.");
         }
+
+      //  con = true;
+      //  if (con == true)
+       //     idf();
     }
 
     private void OnPhotonCreateRoomFailed(object[] codeAndMessage) {
@@ -37,5 +43,9 @@ public class CreateRoom : MonoBehaviour {
         Debug.Log("Room created successfully.");
 
     }
+
+    //private void idf() {
+    //    PlayerNetwork.Instance.eachPlayerName[((PhotonNetwork.player.ID) - 1) % 5] = PhotonNetwork.playerName;
+    //}
 	
 }

@@ -6,13 +6,16 @@ using UnityEngine.UI;
 public class Spawner : MonoBehaviour {
 
     PlayerMovement pm = new PlayerMovement();
+    public GameObject summary;
 
     public Transform[] spawnPoint = new Transform[5];
     public int playerID = 0;
     public string character;
-    
-    private void Awake() {
 
+   // public bool summaryOpen;
+
+    private void Awake() {
+       // summaryOpen
         playerID = PhotonNetwork.player.ID;
         character = PlayerNetwork.Instance.cha;
     }
@@ -40,11 +43,19 @@ public class Spawner : MonoBehaviour {
                 break;
             case 0:
                 pm.RPC_SpawnPlayer(spawnPoint[4], character);
-                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[4   ];
+                PlayerMovement.Instance.selfSpawnTransform = spawnPoint[4];
                 break;
             default: break;
         }
 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+            summary.SetActive(true);
+        else if (Input.GetKeyUp(KeyCode.F))
+            summary.SetActive(false);
     }
 
     public void OnDis()

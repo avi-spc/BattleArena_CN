@@ -42,7 +42,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
         
        
     }
-
+    
     private void Start()
     {
       
@@ -66,6 +66,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
         //canvas.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
         Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
 
+        PhotonView.RPC("setName", PhotonTargets.All, PhotonNetwork.player.ID);
         
         playerDeaths.text = deaths.ToString();
         //playerKills.text = globalKi.eachPlayerKills[gameObject.GetPhotonView().ownerId].ToString();
@@ -225,18 +226,23 @@ public class PlayerMovement : Photon.MonoBehaviour {
         {
             case 1:
                 ki.eachPlayerKills[0]++;
+                ki.eachPlayerScore[0] = ki.eachPlayerScore[0] + 25;
                 break;
             case 2:
                 ki.eachPlayerKills[1]++;
+                ki.eachPlayerScore[1] = ki.eachPlayerScore[1] + 50;
                 break;
             case 3:
                 ki.eachPlayerKills[2]++;
+                ki.eachPlayerScore[2] = ki.eachPlayerScore[2] + Random.Range(50, 100);
                 break;
             case 4:
                 ki.eachPlayerKills[3]++;
+                ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + Random.Range(50, 100);
                 break;
             case 0:
                 ki.eachPlayerKills[4]++;
+                ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + Random.Range(50, 100);
                 break;
             default:
                 break;
@@ -248,7 +254,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
         KillsIncrementer k = go.GetComponent<KillsIncrementer>();
 
         GameUI.Instance.playerKills.text = k.eachPlayerKills[(PhotonNetwork.player.ID-1)%5].ToString();
-
+        GameUI.Instance.playerScore.text = k.eachPlayerScore[(PhotonNetwork.player.ID - 1) % 5].ToString();
     }
 
     [PunRPC]
@@ -286,5 +292,34 @@ public class PlayerMovement : Photon.MonoBehaviour {
         GameUI.Instance.playerDeaths.text = k.eachPlayerDeaths[(PhotonNetwork.player.ID - 1) % 5].ToString();
 
     }
+
+    [PunRPC]
+    private void setName(int id)
+    {
+
+        GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+        KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
+        switch (id % 5)
+        {
+            case 1:
+                ki.eachPlayerName[0] = PhotonNetwork.playerList[0].NickName;
+                break;
+            case 2:
+                ki.eachPlayerName[1] = PhotonNetwork.playerList[1].NickName;
+                break;
+            case 3:
+                ki.eachPlayerName[2] = PhotonNetwork.playerList[2].NickName;
+                break;
+            case 4:
+                ki.eachPlayerName[3] = PhotonNetwork.playerList[3].NickName;
+                break;
+            case 0:
+                ki.eachPlayerName[4] = PhotonNetwork.playerList[4].NickName;
+                break;
+            default:
+                break;
+        }
+    }
+
 
 }

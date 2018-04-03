@@ -8,6 +8,8 @@ public class KillsIncrementer : MonoBehaviour {
 
     public int[] eachPlayerKills = new int[5];
     public int[] eachPlayerDeaths = new int[5];
+    public int[] eachPlayerScore = new int[5];
+    public string[] eachPlayerName = new string[5];
     // Use this for initialization
 
     private void Awake() {
@@ -18,6 +20,15 @@ public class KillsIncrementer : MonoBehaviour {
         {
             eachPlayerDeaths[i] = 0;
         }
+        for (int i = 0; i < eachPlayerScore.Length; i++)
+        {
+            eachPlayerScore[i] = 0;
+        }
+        for (int i = 0; i < eachPlayerName.Length; i++)
+        {
+            eachPlayerName[i] = "";
+        }
+
     }
 
     void Start () {

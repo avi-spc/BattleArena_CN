@@ -46,4 +46,5 @@ MonoBehaviour:
   - increaseKills
   - setKills
   - setDeaths
+  - setName
   DisableAutoOpenWizard: 1

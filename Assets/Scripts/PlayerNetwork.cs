@@ -34,8 +34,9 @@ public class PlayerNetwork : Photon.MonoBehaviour {
         PhotonNetwork.sendRateOnSerialize = 60;
 
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
-        
-	}
+
+       
+    }
 
     private void Update()
     {   

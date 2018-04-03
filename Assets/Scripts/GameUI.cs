@@ -10,6 +10,7 @@ public class GameUI : MonoBehaviour {
     public Text playerHealth;
     public Text playerKills;
     public Text playerDeaths;
+    public Text playerScore;
 	// Use this for initialization
 	private void Awake () {
         Instance = this;
