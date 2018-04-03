@@ -45,4 +45,5 @@ MonoBehaviour:
   - RPC_setKills
   - increaseKills
   - setKills
+  - setDeaths
   DisableAutoOpenWizard: 1

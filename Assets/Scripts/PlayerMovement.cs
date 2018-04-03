@@ -78,9 +78,10 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
         if (curr_health <= 0)
         {
-            deaths++;
+            
             gameObject.SetActive(false);
             Invoke("FurtherRespawn", 2f);
+           // setDeaths();
             //StartCoroutine(FurtherRespawn(selfSpawnTransform));
         }
 
@@ -95,6 +96,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
         {
             GameUI.Instance.playerHealth.text = curr_health.ToString();
             setKills();
+            setDeaths();
            // GameUI.Instance.playerKills.text = 
             //  PhotonView.RPC("RPC_PlayerUICameraFollow", PhotonTargets.OthersBuffered);
 
@@ -195,7 +197,7 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
             if (curr_health <= 0) {
                 PhotonView.RPC("increaseKills", PhotonTargets.All, collision.gameObject.GetPhotonView().ownerId);
-                
+                PhotonView.RPC("setDeaths", PhotonTargets.All, PhotonNetwork.player.ID);
             }
                 
             
@@ -249,34 +251,40 @@ public class PlayerMovement : Photon.MonoBehaviour {
 
     }
 
-    //[PunRPC]
-    //private void setKills()
-    //{
+    [PunRPC]
+    private void setDeaths(int id)
+    {
 
-    //    GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
-    //    KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
-    //    switch (PhotonNetwork.player.ID % 5)
-    //    {
-    //        case 1:
-    //            playerKills.text = ki.eachPlayerKills[0].ToString();
-    //            break;
-    //        case 2:
-    //            playerKills.text = ki.eachPlayerKills[1].ToString();
-    //            break;
-    //        case 3:
-    //            playerKills.text = ki.eachPlayerKills[2].ToString();
-    //            break;
-    //        case 4:
-    //            playerKills.text = ki.eachPlayerKills[3].ToString();
-    //            break;
-    //        case 0:
-    //            playerKills.text = ki.eachPlayerKills[4].ToString();
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
+        GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+        KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
+        switch (id % 5)
+        {
+            case 1:
+                ki.eachPlayerDeaths[0]++;
+                break;
+            case 2:
+                ki.eachPlayerDeaths[1]++;
+                break;
+            case 3:
+                ki.eachPlayerDeaths[2]++;
+                break;
+            case 4:
+                ki.eachPlayerDeaths[3]++;
+                break;
+            case 0:
+                ki.eachPlayerDeaths[4]++;
+                break;
+            default:
+                break;
+        }
+    }
 
+    private void setDeaths() {
+        GameObject go = GameObject.FindGameObjectWithTag("Kills");
+        KillsIncrementer k = go.GetComponent<KillsIncrementer>();
 
+        GameUI.Instance.playerDeaths.text = k.eachPlayerDeaths[(PhotonNetwork.player.ID - 1) % 5].ToString();
+
+    }
 
 }
