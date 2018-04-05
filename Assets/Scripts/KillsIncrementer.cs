@@ -51,6 +51,7 @@ public class KillsIncrementer : MonoBehaviour {
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
             ePN[i] = eachPlayerName[4 - i];
         }
+        Array.Reverse(ePN);
     }
 
    
