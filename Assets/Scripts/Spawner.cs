@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Spawner : MonoBehaviour {
 
     PlayerMovement pm = new PlayerMovement();
-    public GameObject summary;
-
+    
     public Transform[] spawnPoint = new Transform[5];
     public int playerID = 0;
     public string character;
@@ -50,14 +49,7 @@ public class Spawner : MonoBehaviour {
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-            summary.SetActive(true);
-        else if (Input.GetKeyUp(KeyCode.F))
-            summary.SetActive(false);
-    }
-
+   
     public void OnDis()
     {
         PhotonNetwork.Disconnect();

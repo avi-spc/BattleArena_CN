@@ -47,4 +47,7 @@ MonoBehaviour:
   - setKills
   - setDeaths
   - setName
+  - playerDetails
+  - SetName
+  - ting
   DisableAutoOpenWizard: 1

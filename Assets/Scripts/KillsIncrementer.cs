@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class KillsIncrementer : MonoBehaviour {
 
@@ -10,9 +11,16 @@ public class KillsIncrementer : MonoBehaviour {
     public int[] eachPlayerDeaths = new int[5];
     public int[] eachPlayerScore = new int[5];
     public string[] eachPlayerName = new string[5];
+    public string[] ePN = new string[5];
     // Use this for initialization
-
+    public int j;
+    PhotonView pv;
     private void Awake() {
+        j = 0;
+
+        pv = GetComponent<PhotonView>();
+        ePN = new string[PhotonNetwork.countOfPlayers];
+
         for (int i = 0; i < eachPlayerKills.Length; i++) {
             eachPlayerKills[i] = 0;
         }
@@ -29,14 +37,22 @@ public class KillsIncrementer : MonoBehaviour {
             eachPlayerName[i] = "";
         }
 
+      
+
     }
 
     void Start () {
-       
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        Debug.Log(PhotonNetwork.countOfPlayers);
+    }
+
+    // Update is called once per frame
+    void Update () {
+        Array.Sort(eachPlayerName);
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
+            ePN[i] = eachPlayerName[4 - i];
+        }
+    }
+
+   
+   
 }
