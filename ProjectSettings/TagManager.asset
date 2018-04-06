@@ -8,6 +8,7 @@ TagManager:
   - NAN
   - target
   - Kills
+  - Scroller
   layers:
   - Default
   - TransparentFX

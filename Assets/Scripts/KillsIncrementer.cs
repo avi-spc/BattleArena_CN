@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class KillsIncrementer : MonoBehaviour {
 
@@ -15,10 +16,15 @@ public class KillsIncrementer : MonoBehaviour {
     public string[] fePN = new string[5];
     // Use this for initialization
     public int j;
+
+    public GameObject scroller;
+
     PhotonView pv;
     private void Awake() {
         j = 0;
 
+        scroller = GameObject.FindGameObjectWithTag("Scroller");
+        
         pv = GetComponent<PhotonView>();
         ePN = new string[PhotonNetwork.countOfPlayers];
         fePN = new string[PhotonNetwork.countOfPlayers];
@@ -58,6 +64,21 @@ public class KillsIncrementer : MonoBehaviour {
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
             fePN[i] = ePN[i].Remove(0,2);
         }
+
+
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
+        {
+            GameObject go = scroller.transform.GetChild(i).gameObject;
+            go.transform.GetChild(1).GetComponent<Text>().text = fePN[i];
+        }
+
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
+        {
+            GameObject go = scroller.transform.GetChild(i).gameObject;
+            go.transform.GetChild(2).GetComponent<Text>().text = eachPlayerScore[i].ToString();
+        }
+
+
 
     }
 

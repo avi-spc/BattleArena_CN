@@ -12,22 +12,33 @@ public class SummaryLayoutGroup : MonoBehaviour
     }
 
     PhotonView pv;
+    public GameObject KI;
+    public KillsIncrementer KII;
+
+    public int timer;
 
     private void Awake()
     {
+        timer = 1000;
+        KI = GameObject.FindGameObjectWithTag("Kills");
         pv = gameObject.GetComponent<PhotonView>();
     }
 
     private void Start()
     {
-        
+        KII = KI.GetComponent<KillsIncrementer>();
         pv.RPC("playerDetails", PhotonTargets.All);
        // RoomListingButtons.Add(roomListing);
     }
 
     private void Update()
     {
-        
+        //timer--;
+        //if(timer<=0)
+        //for (int i=0;i<PhotonNetwork.countOfPlayers;i++) {
+        //    GameObject go = gameObject.transform.GetChild(i).gameObject;
+        //    go.transform.GetChild(1).GetComponent<Text>().text = KII.fePN[i];
+        //}
 
     }
 
@@ -36,9 +47,9 @@ public class SummaryLayoutGroup : MonoBehaviour
         GameObject summaryListingObject = Instantiate(SummaryListingPrefab);
         summaryListingObject.transform.SetParent(transform, false);
 
-        Text[] summaryChildren = summaryListingObject.GetComponentsInChildren<Text>();
+        //Text[] summaryChildren = summaryListingObject.GetComponentsInChildren<Text>();
 
-        summaryChildren[1].text = PhotonNetwork.player.ID.ToString();
+        //summaryChildren[1].text = PhotonNetwork.player.ID.ToString();
 
         //switch (PhotonNetwork.player.ID % 5) {
         //    case 1: summaryChildren[1].text = KillsIncrementer.Instance.eachPlayerName[0];

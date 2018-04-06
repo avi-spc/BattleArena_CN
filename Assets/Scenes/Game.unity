@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 387770269}
   m_Layer: 5
   m_Name: Content
-  m_TagString: Untagged
+  m_TagString: Scroller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -756,6 +756,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _summaryListingPrefab: {fileID: 1392363338517570, guid: 3607e605e6bf3a54784eaa8486851426,
     type: 2}
+  KI: {fileID: 0}
+  KII: {fileID: 0}
+  timer: 0
 --- !u!114 &387770267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1524,6 +1527,20 @@ MonoBehaviour:
   - 
   - 
   - 
+  ePN:
+  - 
+  - 
+  - 
+  - 
+  - 
+  fePN:
+  - 
+  - 
+  - 
+  - 
+  - 
+  j: 0
+  scroller: {fileID: 0}
 --- !u!4 &909555278
 Transform:
   m_ObjectHideFlags: 0
