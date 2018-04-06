@@ -12,6 +12,7 @@ public class KillsIncrementer : MonoBehaviour {
     public int[] eachPlayerScore = new int[5];
     public string[] eachPlayerName = new string[5];
     public string[] ePN = new string[5];
+    public string[] fePN = new string[5];
     // Use this for initialization
     public int j;
     PhotonView pv;
@@ -20,6 +21,7 @@ public class KillsIncrementer : MonoBehaviour {
 
         pv = GetComponent<PhotonView>();
         ePN = new string[PhotonNetwork.countOfPlayers];
+        fePN = new string[PhotonNetwork.countOfPlayers];
 
         for (int i = 0; i < eachPlayerKills.Length; i++) {
             eachPlayerKills[i] = 0;
@@ -52,6 +54,11 @@ public class KillsIncrementer : MonoBehaviour {
             ePN[i] = eachPlayerName[4 - i];
         }
         Array.Reverse(ePN);
+
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
+            fePN[i] = ePN[i].Remove(0,2);
+        }
+
     }
 
    

@@ -37,6 +37,9 @@ public class SummaryLayoutGroup : MonoBehaviour
         summaryListingObject.transform.SetParent(transform, false);
 
         Text[] summaryChildren = summaryListingObject.GetComponentsInChildren<Text>();
+
+        summaryChildren[1].text = PhotonNetwork.player.ID.ToString();
+
         //switch (PhotonNetwork.player.ID % 5) {
         //    case 1: summaryChildren[1].text = KillsIncrementer.Instance.eachPlayerName[0];
         //        break;

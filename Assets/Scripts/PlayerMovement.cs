@@ -322,19 +322,19 @@ public class PlayerMovement : Photon.MonoBehaviour
             switch (id % 5)
             {
                 case 1:
-                    ki.eachPlayerName[0] = PhotonNetwork.playerList[0].ID + PhotonNetwork.playerList[0].NickName;
+                    ki.eachPlayerName[0] = PhotonNetwork.playerList[0].ID +" "+ PhotonNetwork.playerList[0].NickName;
                     break;
                 case 2:
-                    ki.eachPlayerName[1] = PhotonNetwork.playerList[1].ID + PhotonNetwork.playerList[1].NickName;
+                    ki.eachPlayerName[1] = PhotonNetwork.playerList[1].ID +" "+ PhotonNetwork.playerList[1].NickName;
                     break;
                 case 3:
-                    ki.eachPlayerName[2] = PhotonNetwork.playerList[2].ID + PhotonNetwork.playerList[2].NickName;
+                    ki.eachPlayerName[2] = PhotonNetwork.playerList[2].ID +" "+ PhotonNetwork.playerList[2].NickName;
                     break;
                 case 4:
-                    ki.eachPlayerName[3] = PhotonNetwork.playerList[3].ID + PhotonNetwork.playerList[3].NickName;
+                    ki.eachPlayerName[3] = PhotonNetwork.playerList[3].ID +" "+ PhotonNetwork.playerList[3].NickName;
                     break;
                 case 0:
-                    ki.eachPlayerName[4] = PhotonNetwork.playerList[4].ID + PhotonNetwork.playerList[4].NickName;
+                    ki.eachPlayerName[4] = PhotonNetwork.playerList[4].ID +" "+ PhotonNetwork.playerList[4].NickName;
                     break;
                 default:
                     break;
