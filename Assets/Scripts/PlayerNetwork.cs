@@ -15,7 +15,7 @@ public class PlayerNetwork : Photon.MonoBehaviour {
     public int numofplayer = 0;
 
     private ExitGames.Client.Photon.Hashtable playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
-
+   // string a = "avdhesh";
     private PhotonView PhotonView;
     public PlayerMovement CurrentPlayer;
     public string cha;
@@ -34,7 +34,7 @@ public class PlayerNetwork : Photon.MonoBehaviour {
         PhotonNetwork.sendRateOnSerialize = 60;
 
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
-
+        //Debug.Log(a.Substring(a.Length-2,1));
        
     }
 

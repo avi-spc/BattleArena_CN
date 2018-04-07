@@ -19,7 +19,7 @@ public class PlayerMovement : Photon.MonoBehaviour
     public GameObject playerGameObject, canvas, target;
     private Camera c;
     public PlayerMovement pm;
-
+    
     public int deaths;
 
     GameObject globalKillInc;
@@ -57,7 +57,7 @@ public class PlayerMovement : Photon.MonoBehaviour
         {
             cam.SetActive(false);
         }
-        PhotonView.RPC("setName", PhotonTargets.All, PhotonNetwork.player.ID);
+        PhotonView.RPC("setName", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
     }
 
     void Update()

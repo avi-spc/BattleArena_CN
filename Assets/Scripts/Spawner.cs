@@ -23,7 +23,19 @@ public class Spawner : MonoBehaviour {
 
         Debug.Log(PhotonNetwork.player.ID);
 
-        switch (playerID % 5) {
+        Invoke("CreatePlayer", 0f);
+
+    }
+
+   
+    public void OnDis()
+    {
+        PhotonNetwork.Disconnect();
+    }
+
+    public void CreatePlayer() {
+        switch (playerID % 5)
+        {
             case 1:
                 pm.RPC_SpawnPlayer(spawnPoint[0], character);
                 PlayerMovement.Instance.selfSpawnTransform = spawnPoint[0];
@@ -46,13 +58,6 @@ public class Spawner : MonoBehaviour {
                 break;
             default: break;
         }
-
-    }
-
-   
-    public void OnDis()
-    {
-        PhotonNetwork.Disconnect();
     }
 
 }

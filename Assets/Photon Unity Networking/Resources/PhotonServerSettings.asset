@@ -50,4 +50,5 @@ MonoBehaviour:
   - playerDetails
   - SetName
   - ting
+  - SetRank
   DisableAutoOpenWizard: 1

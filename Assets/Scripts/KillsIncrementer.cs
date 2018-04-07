@@ -14,6 +14,7 @@ public class KillsIncrementer : MonoBehaviour {
     public string[] eachPlayerName = new string[5];
     public string[] ePN = new string[5];
     public string[] fePN = new string[5];
+   
     // Use this for initialization
     public int j;
 
@@ -78,7 +79,8 @@ public class KillsIncrementer : MonoBehaviour {
             go.transform.GetChild(2).GetComponent<Text>().text = eachPlayerScore[i].ToString();
         }
 
-
+        //rankScore = eachPlayerScore;
+        //Array.Sort(rankScore);
 
     }
 
