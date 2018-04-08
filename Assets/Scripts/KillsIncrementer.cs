@@ -18,14 +18,16 @@ public class KillsIncrementer : MonoBehaviour {
     // Use this for initialization
     public int j;
 
-    public GameObject scroller;
+    public GameObject scroller,rankCalc;
+    public RankCalc rankCalcInstance;
 
     PhotonView pv;
     private void Awake() {
         j = 0;
 
         scroller = GameObject.FindGameObjectWithTag("Scroller");
-        
+        rankCalc = GameObject.FindGameObjectWithTag("Rank");
+
         pv = GetComponent<PhotonView>();
         ePN = new string[PhotonNetwork.countOfPlayers];
         fePN = new string[PhotonNetwork.countOfPlayers];
@@ -51,6 +53,7 @@ public class KillsIncrementer : MonoBehaviour {
     }
 
     void Start () {
+        rankCalcInstance = rankCalc.GetComponent<RankCalc>();
         Debug.Log(PhotonNetwork.countOfPlayers);
     }
 
@@ -77,6 +80,12 @@ public class KillsIncrementer : MonoBehaviour {
         {
             GameObject go = scroller.transform.GetChild(i).gameObject;
             go.transform.GetChild(2).GetComponent<Text>().text = eachPlayerScore[i].ToString();
+        }
+
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
+        {
+            GameObject go = scroller.transform.GetChild(i).gameObject;
+            go.transform.GetChild(0).GetComponent<Text>().text = rankCalcInstance.fs[i];
         }
 
         //rankScore = eachPlayerScore;

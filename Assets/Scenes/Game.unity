@@ -1324,7 +1324,7 @@ GameObject:
   - component: {fileID: 780846339}
   m_Layer: 0
   m_Name: GameObject (1)
-  m_TagString: Untagged
+  m_TagString: Rank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rankScore: 0000000000000000000000000000000000000000
-  rS: []
+  rS: 
   s:
   - 
   - 
@@ -1354,7 +1354,8 @@ MonoBehaviour:
   - 
   - 
   - 
-  d:
+  d: 0000000000000000000000000000000000000000
+  t:
   - 
   - 
   - 
@@ -1628,6 +1629,8 @@ MonoBehaviour:
   - 
   j: 0
   scroller: {fileID: 0}
+  rankCalc: {fileID: 0}
+  rankCalcInstance: {fileID: 0}
 --- !u!4 &909555278
 Transform:
   m_ObjectHideFlags: 0

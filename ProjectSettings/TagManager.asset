@@ -9,6 +9,7 @@ TagManager:
   - target
   - Kills
   - Scroller
+  - Rank
   layers:
   - Default
   - TransparentFX

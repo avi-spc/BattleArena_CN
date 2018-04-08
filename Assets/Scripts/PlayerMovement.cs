@@ -57,7 +57,9 @@ public class PlayerMovement : Photon.MonoBehaviour
         {
             cam.SetActive(false);
         }
-        PhotonView.RPC("setName", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+
+        Invoke("changeName", 2f);
+
     }
 
     void Update()
@@ -310,6 +312,10 @@ public class PlayerMovement : Photon.MonoBehaviour
 
         GameUI.Instance.playerDeaths.text = k.eachPlayerDeaths[(PhotonNetwork.player.ID - 1) % 5].ToString();
 
+    }
+
+    private void changeName() {
+        PhotonView.RPC("setName", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
     }
 
     [PunRPC]

@@ -26,6 +26,11 @@ public class RankCalc : MonoBehaviour {
         KI = GameObject.FindGameObjectWithTag("Kills");
         KII = KI.GetComponent<KillsIncrementer>();
 
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
+        {
+            fs[i] = "0";
+        }
+
         pv = GetComponent<PhotonView>();
 	}
 	
@@ -66,7 +71,10 @@ public class RankCalc : MonoBehaviour {
         }
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
         {
-            fs[Int32.Parse(t[i].Substring(t[i].Length - 2, 1))] = t[i].Substring(t[i].Length - 1);
+            if (t[i].Length>2)
+                fs[Int32.Parse(t[i].Substring(t[i].Length - 2, 1))] = t[i].Substring(t[i].Length - 1);
+            else
+                fs[Int32.Parse(t[i].Substring(t[i].Length - 2, 1))] = "0";
         }
 
 
