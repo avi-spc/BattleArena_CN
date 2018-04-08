@@ -10,6 +10,7 @@ TagManager:
   - Kills
   - Scroller
   - Rank
+  - WinLose
   layers:
   - Default
   - TransparentFX

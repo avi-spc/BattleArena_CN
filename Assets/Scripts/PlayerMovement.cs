@@ -74,7 +74,12 @@ public class PlayerMovement : Photon.MonoBehaviour
         //canvas.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
         Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
 
-
+        if (globalKi.winLose[PhotonNetwork.player.ID - 1].Equals("Winner"))
+        {
+            globalKi.WinLoseText.text = "Winner";
+        }
+        else
+            globalKi.WinLoseText.text = "Loser";
 
         playerDeaths.text = deaths.ToString();
         //playerKills.text = globalKi.eachPlayerKills[gameObject.GetPhotonView().ownerId].ToString();

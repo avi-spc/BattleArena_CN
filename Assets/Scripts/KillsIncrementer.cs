@@ -14,9 +14,13 @@ public class KillsIncrementer : MonoBehaviour {
     public string[] eachPlayerName = new string[5];
     public string[] ePN = new string[5];
     public string[] fePN = new string[5];
+    public string[] winLose = new string[5];
+    public GameObject WinLosePanel;
+    public Text WinLoseText;
    
     // Use this for initialization
     public int j;
+    public int timer;
 
     public GameObject scroller,rankCalc;
     public RankCalc rankCalcInstance;
@@ -27,10 +31,11 @@ public class KillsIncrementer : MonoBehaviour {
 
         scroller = GameObject.FindGameObjectWithTag("Scroller");
         rankCalc = GameObject.FindGameObjectWithTag("Rank");
-
+        timer = 2000;
         pv = GetComponent<PhotonView>();
         ePN = new string[PhotonNetwork.countOfPlayers];
         fePN = new string[PhotonNetwork.countOfPlayers];
+        winLose = new string[PhotonNetwork.countOfPlayers];
 
         for (int i = 0; i < eachPlayerKills.Length; i++) {
             eachPlayerKills[i] = 0;
@@ -48,18 +53,33 @@ public class KillsIncrementer : MonoBehaviour {
             eachPlayerName[i] = "";
         }
 
-      
+        for (int i = 0; i < winLose.Length; i++)
+        {
+            winLose[i] = "";
+        }
 
     }
 
     void Start () {
         rankCalcInstance = rankCalc.GetComponent<RankCalc>();
         Debug.Log(PhotonNetwork.countOfPlayers);
+
+        WinLosePanel.SetActive(false);
     }
+
 
     // Update is called once per frame
     void Update () {
+
+        timer--;
+
+        if (timer < 0) {
+            WinLose();
+            WinLosePanel.SetActive(true);
+        }
+
         Array.Sort(eachPlayerName);
+
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++) {
             ePN[i] = eachPlayerName[4 - i];
         }
@@ -88,11 +108,25 @@ public class KillsIncrementer : MonoBehaviour {
             go.transform.GetChild(0).GetComponent<Text>().text = rankCalcInstance.fs[i];
         }
 
+
+
         //rankScore = eachPlayerScore;
         //Array.Sort(rankScore);
 
     }
 
-   
-   
+    private void WinLose()
+    {
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
+        {
+            if (rankCalcInstance.fs[i].Equals("1"))
+            {
+                winLose[i] = "Winner";
+            }
+            else
+                winLose[i] = "Loser";
+        }
+    }
+
+
 }
