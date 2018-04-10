@@ -17,10 +17,12 @@ public class KillsIncrementer : MonoBehaviour {
     public string[] winLose = new string[5];
     public GameObject WinLosePanel;
     public Text WinLoseText;
-   
+    public float[] eachPlayerHealth = new float[5];
+    public GameObject[] allPlayers = new GameObject[5];
+    public float startTime,timer;
+    public Text timerText;
     // Use this for initialization
     public int j;
-    public int timer;
 
     public GameObject scroller,rankCalc;
     public RankCalc rankCalcInstance;
@@ -29,6 +31,9 @@ public class KillsIncrementer : MonoBehaviour {
     private void Awake() {
         j = 0;
 
+        startTime = 12;
+
+        
         scroller = GameObject.FindGameObjectWithTag("Scroller");
         rankCalc = GameObject.FindGameObjectWithTag("Rank");
         timer = 2000;
@@ -53,6 +58,11 @@ public class KillsIncrementer : MonoBehaviour {
             eachPlayerName[i] = "";
         }
 
+        for (int i = 0; i < eachPlayerName.Length; i++)
+        {
+            eachPlayerHealth[i] = 100;
+        }
+
         for (int i = 0; i < winLose.Length; i++)
         {
             winLose[i] = "";
@@ -65,15 +75,26 @@ public class KillsIncrementer : MonoBehaviour {
         Debug.Log(PhotonNetwork.countOfPlayers);
 
         WinLosePanel.SetActive(false);
+
+        
     }
 
 
     // Update is called once per frame
     void Update () {
+        allPlayers = GameObject.FindGameObjectsWithTag("Player");
+       
+        timer = startTime - Time.timeSinceLevelLoad;
 
-        timer--;
+        string minutes = ((int)timer / 60).ToString();
+        string seconds = (timer % 60).ToString("f0");
 
-        if (timer < 0) {
+        timerText.text = minutes + " : " + seconds;
+
+
+        if (timer <= 0) {
+            timer = 0;
+            timerText.text = "0" + " : " + "0"; 
             WinLose();
             WinLosePanel.SetActive(true);
         }
@@ -93,20 +114,55 @@ public class KillsIncrementer : MonoBehaviour {
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
         {
             GameObject go = scroller.transform.GetChild(i).gameObject;
-            go.transform.GetChild(1).GetComponent<Text>().text = fePN[i];
+            go.transform.GetChild(2).GetComponent<Text>().text = fePN[i];
         }
 
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
         {
             GameObject go = scroller.transform.GetChild(i).gameObject;
-            go.transform.GetChild(2).GetComponent<Text>().text = eachPlayerScore[i].ToString();
+            go.transform.GetChild(3).GetComponent<Text>().text = eachPlayerScore[i].ToString();
         }
 
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
         {
             GameObject go = scroller.transform.GetChild(i).gameObject;
-            go.transform.GetChild(0).GetComponent<Text>().text = rankCalcInstance.fs[i];
+            go.transform.GetChild(1).GetComponent<Text>().text = rankCalcInstance.fs[i];
         }
+
+        for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
+        {
+            if (allPlayers[i].GetComponent<PhotonView>().ownerId == 1) {
+                eachPlayerHealth[0] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+                GameObject go = scroller.transform.GetChild(i).gameObject;
+                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[0];
+            }
+            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 2)
+            {
+                eachPlayerHealth[1] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+                GameObject go = scroller.transform.GetChild(i).gameObject;
+                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[1];
+            }
+            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 3)
+            {
+                eachPlayerHealth[2] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+                GameObject go = scroller.transform.GetChild(i).gameObject;
+                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[2];
+            }
+            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 4)
+            {
+                eachPlayerHealth[3] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+                GameObject go = scroller.transform.GetChild(i).gameObject;
+                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[3];
+            }
+            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 5)
+            {
+                eachPlayerHealth[4] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+                GameObject go = scroller.transform.GetChild(i).gameObject;
+                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[4];
+            }
+        }
+
+        
 
 
 

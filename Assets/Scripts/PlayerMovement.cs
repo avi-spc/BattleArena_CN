@@ -350,23 +350,52 @@ public class PlayerMovement : Photon.MonoBehaviour
                 default:
                     break;
             }
+    
 
-        // Array.Reverse(ki.eachPlayerName);
+        //[PunRPC]
+        //private void setHealth(int id)
+        //{
+
+        //    GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+        //    KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
+        //    if (PhotonView.isMine)
+        //        switch (id % 5)
+        //        {
+        //            case 1:
+        //                ki.eachPlayerHealth[0] = PhotonNetwork.playerList[0].ID + " " + PhotonNetwork.playerList[0].NickName;
+        //                break;
+        //            case 2:
+        //                ki.eachPlayerHealth[1] = PhotonNetwork.playerList[1].ID + " " + PhotonNetwork.playerList[1].NickName;
+        //                break;
+        //            case 3:
+        //                ki.eachPlayerHealth[2] = PhotonNetwork.playerList[2].ID + " " + PhotonNetwork.playerList[2].NickName;
+        //                break;
+        //            case 4:
+        //                ki.eachPlayerHealth[3] = PhotonNetwork.playerList[3].ID + " " + PhotonNetwork.playerList[3].NickName;
+        //                break;
+        //            case 0:
+        //                ki.eachPlayerHealth[4] = PhotonNetwork.playerList[4].ID + " " + PhotonNetwork.playerList[4].NickName;
+        //                break;
+        //            default:
+        //                break;
+        //        }
+
+            // Array.Reverse(ki.eachPlayerName);
 
 
-        //    if(PhotonNetwork.player.ID == 1)
-        //        ki.eachPlayerName[0] = PhotonNetwork.player.NickName;
-        //    else if (PhotonNetwork.player.ID == 2)
-        //        ki.eachPlayerName[1] = PhotonNetwork.player.NickName;
-        //    else if (PhotonNetwork.player.ID == 3)
-        //        ki.eachPlayerName[2] = PhotonNetwork.player.NickName;
-        //    else if (PhotonNetwork.player.ID == 4)
-        //        ki.eachPlayerName[3] = PhotonNetwork.player.NickName;
-        //    else if (PhotonNetwork.player.ID == 5)
-        //        ki.eachPlayerName[4] = PhotonNetwork.player.NickName;
+            //    if(PhotonNetwork.player.ID == 1)
+            //        ki.eachPlayerName[0] = PhotonNetwork.player.NickName;
+            //    else if (PhotonNetwork.player.ID == 2)
+            //        ki.eachPlayerName[1] = PhotonNetwork.player.NickName;
+            //    else if (PhotonNetwork.player.ID == 3)
+            //        ki.eachPlayerName[2] = PhotonNetwork.player.NickName;
+            //    else if (PhotonNetwork.player.ID == 4)
+            //        ki.eachPlayerName[3] = PhotonNetwork.player.NickName;
+            //    else if (PhotonNetwork.player.ID == 5)
+            //        ki.eachPlayerName[4] = PhotonNetwork.player.NickName;
 
-        //}
+            //}
 
 
-    }
+        }
 }
