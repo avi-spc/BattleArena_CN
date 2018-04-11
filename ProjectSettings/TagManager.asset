@@ -11,6 +11,7 @@ TagManager:
   - Scroller
   - Rank
   - WinLose
+  - LN
   layers:
   - Default
   - TransparentFX
