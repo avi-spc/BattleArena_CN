@@ -15,7 +15,7 @@ public class RoomCanvas : MonoBehaviour {
     }
 
     public void Cube() {
-        PlayerNetwork.Instance.cha = "Cube";
+        PlayerNetwork.Instance.cha = "P1";
     }
     public void Sphere()
     {

@@ -12,6 +12,7 @@ TagManager:
   - Rank
   - WinLose
   - LN
+  - weapon
   layers:
   - Default
   - TransparentFX

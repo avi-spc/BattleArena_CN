@@ -16,7 +16,7 @@ public class PlayerMovement : Photon.MonoBehaviour
     private Vector3 TargetPosition;
     private Quaternion TargetRotation;
     public GameObject cam;
-    public GameObject playerGameObject, canvas, target;
+    public GameObject playerGameObject, target;
     private Camera c;
     public PlayerMovement pm;
     
@@ -72,7 +72,7 @@ public class PlayerMovement : Photon.MonoBehaviour
         //canvas.transform.rotation = Quaternion.LookRotation(target.transform.forward);
 
         //canvas.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
-        Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
+       // Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
 
         if (globalKi.winLose[PhotonNetwork.player.ID - 1].Equals("Winner"))
         {
@@ -81,7 +81,7 @@ public class PlayerMovement : Photon.MonoBehaviour
         else
             globalKi.WinLoseText.text = "Loser";
 
-        playerDeaths.text = deaths.ToString();
+        //playerDeaths.text = deaths.ToString();
         //playerKills.text = globalKi.eachPlayerKills[gameObject.GetPhotonView().ownerId].ToString();
 
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected)
@@ -133,7 +133,7 @@ public class PlayerMovement : Photon.MonoBehaviour
     private void RPC_PlayerUICameraFollow()
     {
 
-        canvas.transform.LookAt(this.cam.transform);
+        //canvas.transform.LookAt(this.cam.transform);
 
     }
 
@@ -172,7 +172,7 @@ public class PlayerMovement : Photon.MonoBehaviour
     private void CheckInput()
     {
 
-        float moveSpeed = 100f;
+        float moveSpeed = 5f;
         float rotateSpeed = 500f;
 
         float vertical = Input.GetAxis("Vertical");
@@ -194,10 +194,10 @@ public class PlayerMovement : Photon.MonoBehaviour
 
     //}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
 
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "weapon")
         {
 
             // Health -= 10;

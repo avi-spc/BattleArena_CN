@@ -51,4 +51,6 @@ MonoBehaviour:
   - SetName
   - ting
   - SetRank
+  - Run
+  - StopRun
   DisableAutoOpenWizard: 1
