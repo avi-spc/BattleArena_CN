@@ -28,4 +28,8 @@ public class LeaveMatch : MonoBehaviour {
         PhotonNetwork.LoadLevel(1);
 
     }
+
+    public void ExitGame() {
+        Application.Quit();
+    }
 }

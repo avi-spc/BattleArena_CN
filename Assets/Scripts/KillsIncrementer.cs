@@ -23,7 +23,7 @@ public class KillsIncrementer : MonoBehaviour {
     public Text timerText;
     // Use this for initialization
     public int j;
-
+    int index;
     public GameObject scroller,rankCalc;
     public RankCalc rankCalcInstance;
 
@@ -31,12 +31,12 @@ public class KillsIncrementer : MonoBehaviour {
     private void Awake() {
         j = 0;
 
-        startTime = 12;
+        startTime = 125;
 
         
         scroller = GameObject.FindGameObjectWithTag("Scroller");
         rankCalc = GameObject.FindGameObjectWithTag("Rank");
-        timer = 2000;
+        timer = 20;
         pv = GetComponent<PhotonView>();
         ePN = new string[PhotonNetwork.countOfPlayers];
         fePN = new string[PhotonNetwork.countOfPlayers];
@@ -131,40 +131,40 @@ public class KillsIncrementer : MonoBehaviour {
 
         for (int i = 0; i < PhotonNetwork.countOfPlayers; i++)
         {
-            if (allPlayers[i].GetComponent<PhotonView>().ownerId == 1) {
-                eachPlayerHealth[0] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-                GameObject go = scroller.transform.GetChild(i).gameObject;
-                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[0];
-            }
-            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 2)
-            {
-                eachPlayerHealth[1] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-                GameObject go = scroller.transform.GetChild(i).gameObject;
-                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[1];
-            }
-            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 3)
-            {
-                eachPlayerHealth[2] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-                GameObject go = scroller.transform.GetChild(i).gameObject;
-                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[2];
-            }
-            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 4)
-            {
-                eachPlayerHealth[3] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-                GameObject go = scroller.transform.GetChild(i).gameObject;
-                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[3];
-            }
-            else if (allPlayers[i].GetComponent<PhotonView>().ownerId == 5)
-            {
-                eachPlayerHealth[4] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
-                GameObject go = scroller.transform.GetChild(i).gameObject;
-                go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[4];
-            }
+            GameObject go = scroller.transform.GetChild(i).gameObject;
+            go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[i]/100;
+
+
+            //if (allPlayers[i].GetComponent<PhotonView>().ownerId == 1) {
+            //    eachPlayerHealth[0] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+            //    GameObject go = scroller.transform.GetChild(i).gameObject;
+            //    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[0];
+            //}
+            //if (allPlayers[i].GetComponent<PhotonView>().ownerId == 2)
+            //{
+            //    eachPlayerHealth[1] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+            //    GameObject go = scroller.transform.GetChild(i).gameObject;
+            //    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[1];
+            //}
+            //if (allPlayers[i].GetComponent<PhotonView>().ownerId == 3)
+            //{
+            //    eachPlayerHealth[2] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+            //    GameObject go = scroller.transform.GetChild(i).gameObject;
+            //    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[2];
+            //}
+            //if (allPlayers[i].GetComponent<PhotonView>().ownerId == 4)
+            //{
+            //    eachPlayerHealth[3] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+            //    GameObject go = scroller.transform.GetChild(i).gameObject;
+            //    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[3];
+            //}
+            //if (allPlayers[i].GetComponent<PhotonView>().ownerId == 5)
+            //{
+            //    eachPlayerHealth[4] = allPlayers[i].GetComponent<PlayerMovement>().curr_health / 100;
+            //    GameObject go = scroller.transform.GetChild(i).gameObject;
+            //    go.transform.GetChild(5).GetComponent<Image>().fillAmount = eachPlayerHealth[4];
+            //}
         }
-
-        
-
-
 
         //rankScore = eachPlayerScore;
         //Array.Sort(rankScore);
@@ -177,7 +177,7 @@ public class KillsIncrementer : MonoBehaviour {
         {
             if (rankCalcInstance.fs[i].Equals("1"))
             {
-                winLose[i] = "Winner";
+                winLose[i] = "Winner ! ! !";
             }
             else
                 winLose[i] = "Loser";

@@ -65,6 +65,8 @@ public class PlayerMovement : Photon.MonoBehaviour
     void Update()
     {
 
+        PhotonView.RPC("healthSet",PhotonTargets.All);
+
         //Vector3 screenPos = Camera.main.WorldToScreenPoint(d);
         // PhotonView.RPC("setKills", PhotonTargets.All);
 
@@ -74,9 +76,9 @@ public class PlayerMovement : Photon.MonoBehaviour
         //canvas.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
        // Debug.DrawRay(canvas.transform.position, canvas.transform.forward * 1000);
 
-        if (globalKi.winLose[PhotonNetwork.player.ID - 1].Equals("Winner"))
+        if (globalKi.winLose[PhotonNetwork.player.ID - 1].Equals("Winner ! ! !"))
         {
-            globalKi.WinLoseText.text = "Winner";
+            globalKi.WinLoseText.text = "Winner ! ! !";
         }
         else
             globalKi.WinLoseText.text = "Loser";
@@ -86,6 +88,7 @@ public class PlayerMovement : Photon.MonoBehaviour
 
         if (PhotonView.isMine && PhotonNetwork.connectionState == ConnectionState.Connected)
         {
+            if(globalKi.timer>0 && globalKi.timer<121)
             CheckInput();
         }
         else
@@ -100,11 +103,11 @@ public class PlayerMovement : Photon.MonoBehaviour
             //StartCoroutine(FurtherRespawn(selfSpawnTransform));
         }
 
-        if (!PhotonView.isMine)
-        {
-            _playerHealth.text = curr_health.ToString();
+        //if (!PhotonView.isMine)
+        //{
+        //    _playerHealth.text = curr_health.ToString();
 
-        }
+        //}
 
 
 
@@ -172,8 +175,8 @@ public class PlayerMovement : Photon.MonoBehaviour
     private void CheckInput()
     {
 
-        float moveSpeed = 5f;
-        float rotateSpeed = 500f;
+        float moveSpeed = 25f;
+        float rotateSpeed = 250f;
 
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
@@ -194,12 +197,12 @@ public class PlayerMovement : Photon.MonoBehaviour
 
     //}
 
-    private void OnTriggerEnter(Collider collision)
+    public void OnTriggerEnter(Collider collision)
     {
 
         if (collision.gameObject.tag == "weapon")
         {
-
+            Debug.Log("Touched");
             // Health -= 10;
             //  Debug.Log(collider.gameObject.GetPhotonView());
             if (PhotonView != null && PhotonView.isMine)
@@ -208,7 +211,7 @@ public class PlayerMovement : Photon.MonoBehaviour
 
                 PlayerManagement.Instance.ModifyHealth(PhotonView.owner, curr_health);
             }
-            healthFG.fillAmount = curr_health / max_health;
+            //healthFG.fillAmount = curr_health / max_health;
             PhotonView pv;
 
 
@@ -220,7 +223,7 @@ public class PlayerMovement : Photon.MonoBehaviour
 
             if (curr_health <= 0)
             {
-                PhotonView.RPC("increaseKills", PhotonTargets.All, collision.gameObject.GetPhotonView().ownerId);
+                PhotonView.RPC("increaseKills", PhotonTargets.All, collision.gameObject.GetComponentInParent<PhotonView>().ownerId);
                 PhotonView.RPC("setDeaths", PhotonTargets.All, PhotonNetwork.player.ID);
             }
 
@@ -233,7 +236,7 @@ public class PlayerMovement : Photon.MonoBehaviour
     private void FurtherRespawn()
     {
 
-        healthFG.fillAmount = 1;
+        //healthFG.fillAmount = 1;
         curr_health = 100;
         gameObject.SetActive(true);
         gameObject.transform.position = selfSpawnTransform.position;
@@ -254,19 +257,19 @@ public class PlayerMovement : Photon.MonoBehaviour
                 break;
             case 2:
                 ki.eachPlayerKills[1]++;
-                ki.eachPlayerScore[1] = ki.eachPlayerScore[1] + 50;
+                ki.eachPlayerScore[1] = ki.eachPlayerScore[1] + 25;
                 break;
             case 3:
                 ki.eachPlayerKills[2]++;
-                ki.eachPlayerScore[2] = ki.eachPlayerScore[2] + 20;
+                ki.eachPlayerScore[2] = ki.eachPlayerScore[2] + 25;
                 break;
             case 4:
                 ki.eachPlayerKills[3]++;
-                ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 34;
+                ki.eachPlayerScore[3] = ki.eachPlayerScore[3] + 25;
                 break;
             case 0:
                 ki.eachPlayerKills[4]++;
-                ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 2;
+                ki.eachPlayerScore[4] = ki.eachPlayerScore[4] + 25;
                 break;
             default:
                 break;
@@ -350,7 +353,35 @@ public class PlayerMovement : Photon.MonoBehaviour
                 default:
                     break;
             }
-    
+
+
+    }
+
+    [PunRPC]
+    private void healthSet() {
+
+        GameObject KillsInc = GameObject.FindGameObjectWithTag("Kills");
+        KillsIncrementer ki = KillsInc.GetComponent<KillsIncrementer>();
+        if (GetComponent<PhotonView>().ownerId == 1) {
+            ki.eachPlayerHealth[0] = curr_health;
+        }
+        if (GetComponent<PhotonView>().ownerId == 2)
+        {
+            ki.eachPlayerHealth[1] = curr_health;
+        }
+        if (GetComponent<PhotonView>().ownerId == 3)
+        {
+            ki.eachPlayerHealth[2] = curr_health;
+        }
+        if (GetComponent<PhotonView>().ownerId == 4)
+        {
+            ki.eachPlayerHealth[3] = curr_health;
+        }
+        if (GetComponent<PhotonView>().ownerId == 5)
+        {
+            ki.eachPlayerHealth[4] = curr_health;
+        }
+    }
 
         //[PunRPC]
         //private void setHealth(int id)
@@ -398,4 +429,3 @@ public class PlayerMovement : Photon.MonoBehaviour
 
 
         }
-}

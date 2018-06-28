@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour {
 
         Debug.Log(PhotonNetwork.player.ID);
 
-        Invoke("CreatePlayer", 0f);
+        Invoke("CreatePlayer", 2f);
 
     }
 

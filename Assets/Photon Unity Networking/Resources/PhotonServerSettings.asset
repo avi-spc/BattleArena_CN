@@ -53,4 +53,7 @@ MonoBehaviour:
   - SetRank
   - Run
   - StopRun
+  - healthSet
+  - Fly
+  - Stop
   DisableAutoOpenWizard: 1

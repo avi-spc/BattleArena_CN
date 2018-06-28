@@ -13,6 +13,7 @@ TagManager:
   - WinLose
   - LN
   - weapon
+  - RoomL
   layers:
   - Default
   - TransparentFX
