@@ -4,7 +4,6 @@
 Networking project to understand and learn how different components work in Photon Unity Networking.
 
 Just connect to the Internet, launch game, create room with a name and distribute it to your friends with whom you want to battle.
-Match should be started by the person who first initiates the room creation.
 
 Max players allowed per room = 5
 
