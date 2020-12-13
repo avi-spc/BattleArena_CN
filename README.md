@@ -7,6 +7,8 @@ Just connect to the Internet, launch game, create room with a name and distribut
 
 Max players allowed per room = 5
 
+**Available on itch.io:** [BattleArena](https://avi-spc.itch.io/battlearena)
+
 ### Gained knowledge of
 
 * PhotonViews
@@ -19,3 +21,15 @@ Max players allowed per room = 5
 * Blender3D
 * Photon Unity Networking
 * Untiy Game Engine
+
+## Screenshots
+**Start Screen**
+![](Assets/Screenshots/MainMenu.png)
+**Lobby Screen**
+![](Assets/Screenshots/Lobby.png)
+**Game Screen**
+![](Assets/Screenshots/g1.png)
+![](Assets/Screenshots/g2.png)
+**Score**
+![](Assets/Screenshots/score.png)
+
